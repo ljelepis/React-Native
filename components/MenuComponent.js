@@ -12,6 +12,7 @@ function Menu(props) {
                     title={item.name}
                     subtitle={item.description}
                     hideChevron={true}
+                    onPress={() => props.onPress(item.id)}//item.id will be passed in as the parameter to the onPress. that will come into the MainComponent, and the MainComponent will set the selectedDish and then the selected dish is set, and the dishdetail will be rerendered with the selected dish appropriate.
                     leftAvatar={{ source: require('./images/uthappizza.png')}}
                   />
         );
