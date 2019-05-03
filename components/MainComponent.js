@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Menu from './MenuComponent';
 import { DISHES } from '../shared/dishes';
-import Dishdetail from './DishdetailComponent';
+import DishDetail from './DishdetailComponent';
 import { View } from 'react-native';
 
 class Main extends Component {//created the main class component. Inside defined the constructor with the props.
@@ -20,11 +20,13 @@ class Main extends Component {//created the main class component. Inside defined
   render() {
  
     return (//two items Menu and Dishdetail being returned here, and that can't be done, so I hae to inclose that in a view
-        <View>
+        <View style={{flex:1}}>
         <Menu dishes={this.state.dishes}//this.state.dishes supplied as props.
-            onPress={(dishId) => this.onDishSelect(dishId)} />//how I'm passing in handling the user interactions through this parameter, that will result in a call to this function here, the dishId, this.onDishselect(dishId).
-        <Dishdetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} /> //it was an array, but had to return that from single element, so added [0]
-        </View>
+            onPress={(dishId) => this.onDishSelect(dishId)} />
+        <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
+        </View>//it was an array, but had to return that from single element, so added [0]
+        //onPress={(dishId) => this.onDishSelect(dishId)} is how I'm passing in handling the user interactions through this parameter, 
+        //that will result in a call to this function here, the dishId, this.onDishselect(dishId).
     );//removed <view style={{flex: 1}} because it was causing the view to be stretched.
   }
 }
