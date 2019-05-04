@@ -1,9 +1,41 @@
 import React, { Component } from 'react';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
+import About from './AboutComponent';
+import Contact from './ContactComponent';
 import DishDetail from './DishdetailComponent';
 import { View, Platform } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+
+const ContactNavigator = createStackNavigator({//created a new component MenuNavigator component, which is a stackNavigator component.
+  Contact: { screen: Contact }//this is a JS object here, with the parameter screen, which specifies the component for which you navigate when you make this choice here.
+}, {
+    initialRouteName: 'Contact',
+    navigationOptions: {
+      headerStyle: {//where we specify the color for the header for our stackNavigator.
+        backgroundColor: '#512DA8'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        color: '#fff'
+      }
+    }
+  });
+
+const AboutNavigator = createStackNavigator({//created a new component MenuNavigator component, which is a stackNavigator component.
+  About: { screen: About }//this is a JS object here, with the parameter screen, which specifies the component for which you navigate when you make this choice here.
+}, {
+    initialRouteName: 'About',
+    navigationOptions: {
+      headerStyle: {//where we specify the color for the header for our stackNavigator.
+        backgroundColor: '#512DA8'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        color: '#fff'
+      }
+    }
+  });
 
 const MenuNavigator = createStackNavigator({//created a new component MenuNavigator component, which is a stackNavigator component.
   Menu: { screen: Menu },//this is a JS object here, with the parameter screen, which specifies the component for which you navigate when you make this choice here.
@@ -44,13 +76,27 @@ const MainNavigator = createDrawerNavigator({
       drawerLabel: 'Home'
     }
   },
+  About: {
+    screen: AboutNavigator,
+    navigationOptions: {
+      title: 'About Us',
+      drawerLabel: 'About'
+    }
+  },
   Menu: {
     screen: MenuNavigator,
     navigationOptions: {
       title: 'Menu',
       drawerLabel: 'Menu'
     }
-  }
+  },
+  Contact: {
+    screen: ContactNavigator,
+    navigationOptions: {
+      title: 'Contact Us',
+      drawerLabel: 'Contact'
+    }
+  },
 }, {
   drawerBackgrounColor: '#D1C4E9'});
 
