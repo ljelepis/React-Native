@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { Tile } from 'react-native-elements';
 import { DISHES } from '../shared/dishes';
 //will turn functional component "function Menu(props)" into a classical component, because we want to store our state here.
+import { baseUrl } from '../shared/baseUrl';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+    return {
+        dishes: state.dishes
+    }
+}
 
 class Menu extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            dishes: DISHES
-        };
-    }
 
     static navigationOptions = {
         title: 'Menu'
@@ -21,13 +22,13 @@ class Menu extends Component {
         
         const renderMenuItem = ({item, index}) => {//moved renderMenuItem into render, bc it's gonna be used by the FlatList here.
             return (
-                    <ListItem
+                    <Tile
                         key={index}//key property is index here. What is supplied through key extractor down in return.
                         title={item.name}
-                        subtitle={item.description}
-                        hideChevron={true}
+                        caption={item.description}
+                        featured
                         onPress={() => navigate('DishDetail', { dishId: item.id })}
-                        leftAvatar={{ source: require('./images/uthappizza.png')}}
+                        imageSrc={{ uri: baseUrl + item.image }}
                       />
             );
         }
@@ -36,7 +37,7 @@ class Menu extends Component {
 
         return(//because we are returning this from inside the render function.
             <FlatList //expects me to supply some info. it will use in order to render the list of items.
-                data={this.state.dishes}
+                data={this.props.dishes.dishes}
                 renderItem={renderMenuItem}//how to render each item in the list. take parameter where we will render each item in the list.
                 keyExtractor={item => item.id.toString()}//keyExtractor expect to supply a string.
                 />
@@ -44,4 +45,4 @@ class Menu extends Component {
     }
 }
 
-export default Menu;
+export default connect(mapStateToProps)(Menu);

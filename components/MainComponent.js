@@ -7,6 +7,20 @@ import DishDetail from './DishdetailComponent';
 import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+
+const mapStateToProps = state => {
+    return {
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchDishes: () => dispatch(fetchDishes()),
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos()),
+  fetchLeaders: () => dispatch(fetchLeaders()),
+});
 
 const ContactNavigator = createStackNavigator({//created a new component MenuNavigator component, which is a stackNavigator component.
   Contact: { screen: Contact }//this is a JS object here, with the parameter screen, which specifies the component for which you navigate when you make this choice here.
@@ -174,6 +188,13 @@ const MainNavigator = createDrawerNavigator({
 
 class Main extends Component {//created the main class component. Inside defined the constructor with the props.
 
+  componentDidMount() {
+    this.props.fetchDishes();//each of these will issue a fetch to the server.
+    this.props.fetchComments();//by using the fetch
+    this.props.fetchPromos();//to obtain the data
+    this.props.fetchLeaders();//by our JSON server.
+  }//once data is obtained, that'll be loaded into my Redux store.
+
   render() {
     //platform that we imported here, gives me access to specific platform on which React App is running.
     return (//two items Menu and Dishdetail being returned here, and that can't be done, so I hae to inclose that in a view
@@ -210,4 +231,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
