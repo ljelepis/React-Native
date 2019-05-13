@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 import { Tile } from 'react-native-elements';
 import { DISHES } from '../shared/dishes';
 //will turn functional component "function Menu(props)" into a classical component, because we want to store our state here.
