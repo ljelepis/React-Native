@@ -6,6 +6,7 @@ import { DISHES } from '../shared/dishes';
 import { baseUrl } from '../shared/baseUrl';
 import { connect } from 'react-redux';
 import { Loading } from './LoadingComponent';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -23,14 +24,16 @@ class Menu extends Component {
         
         const renderMenuItem = ({item, index}) => {//moved renderMenuItem into render, bc it's gonna be used by the FlatList here.
             return (
+                <Animatable.View animation="fadeInRightBig" duration={2000}>                
                     <Tile
-                        key={index}//key property is index here. What is supplied through key extractor down in return.
+                        key={index}
                         title={item.name}
                         caption={item.description}
                         featured
                         onPress={() => navigate('DishDetail', { dishId: item.id })}
-                        imageSrc={{ uri: baseUrl + item.image }}
-                      />
+                        imageSrc={{ uri: baseUrl + item.image}}
+                    />
+                </Animatable.View>
             );
         }
         

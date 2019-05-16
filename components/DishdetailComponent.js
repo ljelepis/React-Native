@@ -4,6 +4,7 @@ import { Card, Icon, Rating, AirbnbRating, Input } from 'react-native-elements';
 import { baseUrl } from '../shared/baseUrl';
 import { connect } from 'react-redux';
 import { postFavorite, postComment } from '../redux/ActionCreators';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
     return {
@@ -23,9 +24,10 @@ function RenderDish(props) {
     
     if (dish != null) {
         return(//using Card to render dish.
-            <Card
-                featuredTitle={dish.name}
-                image={{ uri: baseUrl + dish.image }}>
+            <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+                <Card
+                    featuredTitle={dish.name}
+                    image={{uri: baseUrl + dish.image}}>
                 <Text style={{margin: 10}}>
                     {dish.description}
                 </Text>
@@ -48,7 +50,8 @@ function RenderDish(props) {
                     onPress={() => props.onShowModal()}
                     />
                 </View>  
-            </Card>
+                </Card>
+            </Animatable.View>
         );//Applied style in <Text style, as an inline style here, so margin 10. Similar to CSS, but only a subset of CSS.
     }
     else {
@@ -77,13 +80,15 @@ function RenderComments(props) {//this function component will render all the co
     };
 
     return(
-        <Card title="Comments">
-            <FlatList
-                data={comments}
-                renderItem={renderCommentItem}
-                keyExtractor={item => item.id.toString()}
+        <Animatable.View animation="fadeInUp" duration={2000} delay={1000}>        
+            <Card title='Comments' >
+                <FlatList 
+                    data={comments}
+                    renderItem={renderCommentItem}
+                    keyExtractor={item => item.id.toString()}
                 />
-        </Card>
+            </Card>
+        </Animatable.View>
     );
 }
 
